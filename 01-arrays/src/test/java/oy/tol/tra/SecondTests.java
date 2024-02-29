@@ -19,7 +19,7 @@ public class SecondTests {
    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the IntArray.reverse()") 
    void reverseTest() {
-      Integer [] testArray = getArrayWithNumbers();
+      Integer [] testArray = this.getArrayWithNumbers();
 
       List<Integer> list = new ArrayList<Integer>(Arrays.asList(testArray));
       Collections.reverse(list);
@@ -39,7 +39,7 @@ public class SecondTests {
    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the IntArray.sort()")
    void sortTest() {
-      Integer [] testArray = getArrayWithNumbers();
+      Integer [] testArray = this.getArrayWithNumbers();
       
       List<Integer> list = new ArrayList<Integer>(Arrays.asList(testArray));
       Collections.sort(list);
