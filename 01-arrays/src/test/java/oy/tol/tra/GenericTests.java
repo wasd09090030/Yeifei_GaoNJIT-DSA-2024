@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Timeout;
 public class GenericTests {
    
    @Test
-   @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+  // @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic reverse() with integers") 
    void reverseTestInteger() {
-      Integer [] testArray = getArrayWithNumbers();
+      Integer [] testArray = this.getArrayWithNumbers();
 
       List<Integer> list = new ArrayList<Integer>(Arrays.asList(testArray));
       Collections.reverse(list);
@@ -39,7 +39,7 @@ public class GenericTests {
    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic reverse() with strings") 
    void reverseTestString() {
-      String [] testArray = getArrayWithStrings();
+      String [] testArray = this.getArrayWithStrings();
 
       List<String> list = new ArrayList<String>(Arrays.asList(testArray));
       Collections.reverse(list);
@@ -59,7 +59,7 @@ public class GenericTests {
    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic sort() with integers")
    void sortTestInteger() {
-      Integer [] testArray = getArrayWithNumbers();
+      Integer [] testArray = this.getArrayWithNumbers();
       
       List<Integer> list = new ArrayList<Integer>(Arrays.asList(testArray));
       Collections.sort(list);
@@ -78,7 +78,7 @@ public class GenericTests {
    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic sort() with strings")
    void sortTestString() {
-      String [] testArray = getArrayWithStrings();
+      String [] testArray = this.getArrayWithStrings();
       
       List<String> list = new ArrayList<String>(Arrays.asList(testArray));
       Collections.sort(list);

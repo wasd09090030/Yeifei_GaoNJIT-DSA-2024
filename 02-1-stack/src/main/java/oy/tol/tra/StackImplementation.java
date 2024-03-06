@@ -1,5 +1,7 @@
 package oy.tol.tra;
 
+import java.util.Stack;
+
 /**
  * An implementation of the StackInterface.
  * <p>
@@ -17,6 +19,7 @@ public class StackImplementation<E> implements StackInterface<E> {
    private int capacity;
    private int currentIndex = -1;
    private static final int DEFAULT_STACK_SIZE = 10;
+   Stack<E> stack01= new Stack<E>();
 
    /**
     * Allocates a stack with a default capacity.
@@ -40,31 +43,34 @@ public class StackImplementation<E> implements StackInterface<E> {
 
    @Override
    public int capacity() {
+      return this.stack01.capacity();
       // TODO: Implement this
       
    }
 
    @Override
    public void push(E element) throws StackAllocationException, NullPointerException {
-      // TODO: Implement this
+      // TODO: Implement this，
+      this.stack01.push(element);
                
    }
 
    @SuppressWarnings("unchecked")
    @Override
    public E pop() throws StackIsEmptyException {
-      
+      return  this.stack01.pop();
    }
 
    @SuppressWarnings("unchecked")
    @Override
    public E peek() throws StackIsEmptyException {
-      
+      return this.stack01.peek();
    }
 
    @Override
    public int size() {
       // TODO: Implement this
+      return this.stack01.size();
       
    }
 
@@ -77,15 +83,15 @@ public class StackImplementation<E> implements StackInterface<E> {
    @Override
    public boolean isEmpty() {
       // TODO: Implement this
-      
+      return this.stack01.empty();
    }
 
    @Override
    public String toString() {
       StringBuilder builder = new StringBuilder("[");
-      for (var index = 0; index <= currentIndex; index++) {
-         builder.append(itemArray[index].toString());
-         if (index < currentIndex) {
+      for (var index = 0; index <= this.currentIndex; index++) {
+         builder.append(this.itemArray[index].toString());
+         if (index < this.currentIndex) {
             builder.append(", ");
          }
       }
