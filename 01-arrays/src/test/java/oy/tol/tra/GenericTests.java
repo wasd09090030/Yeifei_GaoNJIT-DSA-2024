@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Timeout;
 public class GenericTests {
    
    @Test
-  // @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+   @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic reverse() with integers") 
    void reverseTestInteger() {
       Integer [] testArray = this.getArrayWithNumbers();
