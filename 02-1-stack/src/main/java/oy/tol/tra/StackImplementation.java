@@ -1,89 +1,112 @@
 package oy.tol.tra;
 
+
 import java.util.Stack;
 
-/**
- * An implementation of the StackInterface.
- * <p>
- * TODO: Students, implement this so that the tests pass.
- * 
- * Note that you need to implement construtor(s) for your concrete StackImplementation, which
- * allocates the internal Object array for the Stack:
- * - a default constructor, calling the StackImplementation(int size) with value of 10.
- * - StackImplementation(int size), which allocates an array of Object's with size.
- *  -- remember to maintain the capacity and/or currentIndex when the stack is manipulated.
- */
+
 public class StackImplementation<E> implements StackInterface<E> {
 
-   private Object [] itemArray;
+   private Object[] itemArray;
    private int capacity;
    private int currentIndex = -1;
    private static final int DEFAULT_STACK_SIZE = 10;
-   Stack<E> stack01= new Stack<E>();
 
-   /**
-    * Allocates a stack with a default capacity.
-    * @throws StackAllocationException
-    */
+   Stack<E> stack01 = new Stack<E>();
+
+   
    public StackImplementation() throws StackAllocationException {
       // TODO: call the constructor with size parameter with default size of 10.
-      
+
    }
 
-   /** TODO: Implement so that
-    * - if the size is less than 2, throw StackAllocationException
-    * - if the allocation of the array throws with Java exception,
-    *   throw StackAllocationException.
-    * @param capacity The capacity of the stack.
-    * @throws StackAllocationException If cannot allocate room for the internal array.
-    */
+  
    public StackImplementation(int capacity) throws StackAllocationException {
-      
+      this.capacity = capacity;
+      this.itemArray = new Object[capacity];
+
    }
 
    @Override
    public int capacity() {
-      return this.stack01.capacity();
-      // TODO: Implement this
+      return this.capacity;
       
+
    }
 
    @Override
    public void push(E element) throws StackAllocationException, NullPointerException {
-      // TODO: Implement this，
-      this.stack01.push(element);
-               
+      
+      if (element == null)
+         throw new NullPointerException();
+      else if (this.currentIndex + 1 == this.capacity)
+         {this.IncreaseCapacity();
+         this.itemArray[++this.currentIndex] = element;}
+      else {
+         this.itemArray[++this.currentIndex] = element;
+      }
+
+   }
+
+   public void IncreaseCapacity() {
+      this.capacity = this.capacity * 2;
+      Object[] itemArray01;
+      itemArray01 = new Object[this.capacity];
+
+
+      for(int i=0;i<this.itemArray.length;i++){
+			itemArray01[i] = this.itemArray[i];
+		}
+      this.itemArray=itemArray01;
+
+
    }
 
    @SuppressWarnings("unchecked")
    @Override
    public E pop() throws StackIsEmptyException {
-      return  this.stack01.pop();
+      if (this.currentIndex == -1) {
+         throw new StackIsEmptyException("StackIsEmptyException");
+      } else {
+         E popElement = (E) this.itemArray[this.currentIndex--];
+       
+         return popElement;
+      }
+
    }
 
    @SuppressWarnings("unchecked")
    @Override
    public E peek() throws StackIsEmptyException {
-      return this.stack01.peek();
+      if (this.currentIndex == -1) {
+         throw new StackIsEmptyException("StackIsEmptyException");
+      } else {
+         return (E) this.itemArray[this.currentIndex];
+      }
+
    }
 
    @Override
    public int size() {
-      // TODO: Implement this
-      return this.stack01.size();
       
+      return this.currentIndex+1;
+
    }
 
    @Override
    public void clear() {
-      // TODO: Implement this
-      
+     
+      this.itemArray=null;
+      this.currentIndex=-1;
+
+
    }
 
    @Override
    public boolean isEmpty() {
-      // TODO: Implement this
-      return this.stack01.empty();
+
+      return this.currentIndex == -1;
+   
+
    }
 
    @Override

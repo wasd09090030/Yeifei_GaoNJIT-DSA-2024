@@ -61,7 +61,7 @@ public class StackTests {
     @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     @DisplayName("Test the empty stack behaviour.")
     void emptyStackTest() {
-        // Test that count of just initialized stack is zero and pop returns null.
+       //  Test that count of just initialized stack is zero and pop returns null.
         StackInterface<Integer> stackToTest = StackFactory.createIntegerStack(10);
         assertEquals(0, stackToTest.size(), () -> "Expected stack to be empty, count() returning 0.");
         assertTrue(stackToTest.isEmpty(), () -> "Stack should be empty after creating it.");
@@ -88,7 +88,7 @@ public class StackTests {
         // Create a random count to fill the stack to.
         int elementCount = randomizer.nextInt(stackSize) + 10;
         // Fill the list with test data.
-        List<Integer> testData = fillWithTestData(elementCount);
+        List<Integer> testData = this.fillWithTestData(elementCount);
         // Push the test data to the stack, asserting that push succeeded.
         StackInterface<Integer> stackToTest = StackFactory.createIntegerStack(10);
         for (Integer value : testData) {
@@ -127,7 +127,7 @@ public class StackTests {
         assertTrue(stackToTest.isEmpty(), () -> "Stack should be empty after creating it.");
         // Fill the stack to contain max number of items.
         int oldCapacity = stackToTest.capacity();
-        List<Integer> testData = fillWithTestData(oldCapacity);
+        List<Integer> testData = this.fillWithTestData(oldCapacity);
         for (Integer value : testData) {
             assertDoesNotThrow(() -> stackToTest.push(value), "In this test push must succeed, but push failed.");
         }
@@ -188,7 +188,7 @@ public class StackTests {
     void reallyGrowTheStack() {
         StackInterface<Integer> stackToTest = StackFactory.createIntegerStack(10);
         // Fill the stack to contain max number of items.
-        List<Integer> testData = fillWithTestData(stackSize);
+        List<Integer> testData = this.fillWithTestData(stackSize);
         int firstFillCount = testData.size();
         for (Integer value : testData) {
             assertDoesNotThrow(() -> stackToTest.push(value), "In this test push must succeed, but push failed.");
@@ -196,7 +196,7 @@ public class StackTests {
         // Stack should be now full so the next push must reallocate internal array and
         // capacity should be increased.
         int newCapacity = stackToTest.capacity();
-        testData = fillWithTestData(newCapacity * 10);
+        testData = this.fillWithTestData(newCapacity * 10);
         for (Integer value : testData) {
             assertDoesNotThrow(() -> stackToTest.push(value), "In this test push must succeed, but push failed.");
         }
@@ -220,7 +220,7 @@ public class StackTests {
         final int testDataSize = currentCapacity - currentSize - 2;
         if (testDataSize > 0) {
             // Then add test data so that the capacity is not changed.
-            List<Integer> testData = fillWithTestData(testDataSize);
+            List<Integer> testData = this.fillWithTestData(testDataSize);
             for (Integer value : testData) {
                 assertDoesNotThrow(() -> stackToTest.push(value), "In this test push must succeed, but push failed.");
             }

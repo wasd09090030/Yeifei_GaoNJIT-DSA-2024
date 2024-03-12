@@ -114,13 +114,13 @@ import org.junit.jupiter.api.Order;
     @DisplayName("Test filling the queue and emptying it using add and remove.")
     void addRemoveQueueTest() {
         System.out.println("Testing filling and emptying a queue.");
-        int queueSize = randomQueueSize();
+        int queueSize = this.randomQueueSize();
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(queueSize);
         assertTrue(queueToTest.isEmpty(), () -> "The queue should be empty.");
         // Create a random count to fill the queue to.
         int elementCount = randomizer.nextInt(queueSize) + 5;
         // Fill the list with test data.
-        List<Integer> testData = fillWithTestData(elementCount);
+        List<Integer> testData = this.fillWithTestData(elementCount);
         // Push the test data to the queue, asserting that add succeeded.
         for (Integer value : testData) {
             assertDoesNotThrow(() -> queueToTest.enqueue(value), "In this test add must succeed, add failed.");
@@ -146,10 +146,10 @@ import org.junit.jupiter.api.Order;
     @DisplayName("Test queue reallocation.")
     void overFillQueueTest() {
         System.out.println("Testing trying to overfill a queue.");
-        int queueSize = randomQueueSize();
+        int queueSize = this.randomQueueSize();
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(queueSize);
         // Fill the queue to contain max number of items.
-        List<Integer> testData = fillWithTestData(queueSize);
+        List<Integer> testData = this.fillWithTestData(queueSize);
         for (Integer value : testData) {
             assertDoesNotThrow(() -> queueToTest.enqueue(value), "In this test add must succeed, add failed.");
         }
@@ -170,7 +170,7 @@ import org.junit.jupiter.api.Order;
     void resetQueueTest() {
         System.out.println("Testing clearing a queue.");
         // Put something in the queue, then reset it and check if it is empty.
-        QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(randomQueueSize());
+        QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(this.randomQueueSize());
         queueToTest.enqueue(109);
         queueToTest.enqueue(111);
         queueToTest.clear();
@@ -185,7 +185,7 @@ import org.junit.jupiter.api.Order;
     @DisplayName("Testing the dequeue and reset methods")
     void removeTest() {
         System.out.println("Testing remove and reset methods with count and element values.");
-        int queueSize = randomQueueSize();
+        int queueSize = this.randomQueueSize();
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(queueSize);
         queueToTest.enqueue(109);
         queueToTest.enqueue(111);
@@ -206,14 +206,14 @@ import org.junit.jupiter.api.Order;
     @DisplayName("Testing the print method")
     void printTest() {
         System.out.println("Testing printing queue values in correct order (head -> tail).");
-        int queueSize = randomQueueSize();
+        int queueSize = this.randomQueueSize();
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(queueSize);
         assertEquals("[]", queueToTest.toString(), () -> "Empty queue must print out as \"[]\"");
         
         assertDoesNotThrow(() -> queueToTest.enqueue(42), "In this test enqueue must succeed, but failed");
         assertEquals("[42]", queueToTest.toString(), () -> "Queue with one value to string fails");
         // Fill the queue to contain max number of items.
-        List<Integer> testData = fillWithTestData(5);
+        List<Integer> testData = this.fillWithTestData(5);
         queueToTest.clear();
         for (Integer value : testData) {
             assertDoesNotThrow(() -> queueToTest.enqueue(value), "In this test enqueue must succeed, but failed.");
@@ -256,7 +256,7 @@ import org.junit.jupiter.api.Order;
     void reallyGrowTheQueue() {
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(30);
         // Fill the stack to contain max number of items.
-        List<Integer> testData = fillWithTestData(20);
+        List<Integer> testData = this.fillWithTestData(20);
         int firstNumberInQueue = testData.get(0);
         int firstFillCount = testData.size();
         for (Integer value : testData) {
@@ -264,7 +264,7 @@ import org.junit.jupiter.api.Order;
         }
         // Stack should be now full so the next push must reallocate internal array and capacity should be increased.
         int newCapacity = queueToTest.capacity();
-        testData = fillWithTestData(newCapacity * 10);
+        testData = this.fillWithTestData(newCapacity * 10);
         for (Integer value : testData) {
             assertDoesNotThrow(() -> queueToTest.enqueue(value), "In this test enqueue must succeed, but failed.");
         }
