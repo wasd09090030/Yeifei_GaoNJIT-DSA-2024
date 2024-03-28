@@ -15,12 +15,16 @@ public class StackImplementation<E> implements StackInterface<E> {
 
    
    public StackImplementation() throws StackAllocationException {
-      // TODO: call the constructor with size parameter with default size of 10.
+      this.capacity = DEFAULT_STACK_SIZE;
+      this.itemArray = new Object[this.capacity];
+
 
    }
 
   
    public StackImplementation(int capacity) throws StackAllocationException {
+      if (capacity < 2)
+         throw new StackAllocationException("size-is-less-than-two");
       this.capacity = capacity;
       this.itemArray = new Object[capacity];
 
@@ -67,9 +71,13 @@ public class StackImplementation<E> implements StackInterface<E> {
       if (this.currentIndex == -1) {
          throw new StackIsEmptyException("StackIsEmptyException");
       } else {
-         E popElement = (E) this.itemArray[this.currentIndex--];
-       
+         E popElement = (E) this.itemArray[this.currentIndex];
+         this.itemArray[this.currentIndex] = 0;
+         this.currentIndex--;
+
          return popElement;
+       
+
       }
 
    }
