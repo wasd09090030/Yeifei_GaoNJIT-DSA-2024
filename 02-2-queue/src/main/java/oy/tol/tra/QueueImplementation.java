@@ -8,17 +8,30 @@ public class QueueImplementation <E> implements QueueInterface<E> {
    private int capacity;
    private int front = -1;
    private int rear = -1;
-   
-
-   public  QueueImplementation(int capacity) throws QueueAllocationException {
-    this.capacity = capacity;
-    this.itemArray = new Object[capacity];
-
- }
 
 
+    public  QueueImplementation(int capacity) throws QueueAllocationException {
+        if (capacity < 2)
+            throw new QueueAllocationException("size-is-less-than-two");
+        this.capacity = capacity;
+        this.itemArray = new Object[capacity];
+        this.front = -1;
+        this.rear = -1;
 
-@Override
+    }
+
+
+    public  QueueImplementation() throws QueueAllocationException {
+        this.capacity = 10;
+        this.itemArray = new Object[this.capacity];
+        this.front = -1;
+        this.rear = -1;
+
+    }
+
+
+
+    @Override
 public int capacity() {
     return this.capacity;
     
@@ -52,16 +65,42 @@ public void IncreaseCapacity() {
  }
 
 
-@Override
-public E dequeue() throws QueueIsEmptyException {
-    if (this.isEmpty())
-    throw new QueueIsEmptyException("QueueIsEmpty");
-    else
-    this.front++; 
-    
-    return (E) this.itemArray[this.front];
-    
-}
+    public void reSetArray(){
+
+        int k=0;
+        Object[] itemArray02 = new Object[this.capacity];
+
+
+        for(int i = this.front + 1; i <= this.rear; i++){
+
+            itemArray02[k] = this.itemArray[i];
+            k++;
+
+        }
+        this.itemArray=itemArray02;
+
+        this.front=-1;
+        this.rear=this.rear-1;
+
+
+    }
+
+
+
+    @Override
+    public E dequeue() throws QueueIsEmptyException {
+        if (this.isEmpty())
+            throw new QueueIsEmptyException("QueueIsEmpty");
+        else
+            this.front++;
+        E element01=(E) this.itemArray[this.front];
+
+        this.reSetArray();
+
+
+        return element01;
+
+    }
 @Override
 public E element() throws QueueIsEmptyException {
     if (this.isEmpty())

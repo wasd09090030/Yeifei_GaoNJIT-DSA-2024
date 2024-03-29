@@ -72,7 +72,7 @@ public class StackImplementation<E> implements StackInterface<E> {
          throw new StackIsEmptyException("StackIsEmptyException");
       } else {
          E popElement = (E) this.itemArray[this.currentIndex];
-         this.itemArray[this.currentIndex] = 0;
+         this.itemArray[this.currentIndex] = null;
          this.currentIndex--;
 
          return popElement;
