@@ -40,11 +40,16 @@ public class QueueImplementation <E> implements QueueInterface<E> {
 
         if (element == null)
             throw new NullPointerException();
-        else if (this.rear + 1 == this.capacity)
-        {this.increaseCapacity();
-            this.itemArray[++this.rear] = element;}
-        else {
+        else if ((this.rear-this.front)==this.capacity) {
+            this.increaseCapacity();
             this.itemArray[++this.rear] = element;
+        } else if(this.rear + 1 == this.capacity&&(this.rear-this.front)<this.capacity) {
+            this.reFillCapacity();
+            this.itemArray[++this.rear] = element;
+        }
+        else{
+            this.itemArray[++this.rear] = element;
+
         }
 
     }
@@ -55,23 +60,46 @@ public class QueueImplementation <E> implements QueueInterface<E> {
         itemArray01 = new Object[this.capacity];
         int t=0;
 
-
-
-        for(int i = 0; i < this.itemArray.length; i++){
-            if(this.itemArray[i]!=null){
+        for (int i = 0; i < this.itemArray.length; i++) {
+            if (this.itemArray[i] != null) {
 
                 itemArray01[t] = this.itemArray[i];
+
                 t++;
 
             }
 
         }
         this.itemArray=itemArray01;
-        this.front=-1;
-        this.rear=t-1;
+        this.front = -1;
+        this.rear = t - 1;
+
 
 
     }
+
+
+    public void reFillCapacity(){
+
+        int t = 0;
+
+
+        for (int i = 0; i < this.itemArray.length; i++) {
+            if (this.itemArray[i] != null) {
+
+                this.itemArray[t] = this.itemArray[i];
+                this.itemArray[i]=null;
+                t++;
+
+            }
+
+        }
+        this.front = -1;
+        this.rear = t - 1;
+
+
+    }
+
 
 
 
