@@ -8,6 +8,7 @@ public class QueueImplementation <E> implements QueueInterface<E> {
     private int capacity;
     private int front = -1;
     private int rear = -1;
+    private int DEFAULT_QUEUE_SIZE = 10;
 
 
     public  QueueImplementation(int capacity) throws QueueAllocationException {
@@ -22,7 +23,7 @@ public class QueueImplementation <E> implements QueueInterface<E> {
 
 
     public  QueueImplementation() throws QueueAllocationException {
-        this.capacity = 10;
+        this.capacity = DEFAULT_QUEUE_SIZE;
         this.itemArray = new Object[this.capacity];
         this.front = -1;
         this.rear = -1;
