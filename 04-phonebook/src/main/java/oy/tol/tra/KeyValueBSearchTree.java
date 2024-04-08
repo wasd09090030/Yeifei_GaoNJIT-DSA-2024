@@ -40,7 +40,7 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
     public boolean add(K key, V value) throws IllegalArgumentException, OutOfMemoryError {
 
         if (null == key || null == value) {
-            throw new NullPointerException("Keys or values cannot be null");
+            throw new IllegalArgumentException("Keys or values cannot be null");
         }
         int i=0;
 

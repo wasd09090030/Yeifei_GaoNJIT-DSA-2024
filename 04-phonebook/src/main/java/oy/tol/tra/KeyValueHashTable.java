@@ -6,7 +6,7 @@ package oy.tol.tra;
 
 public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
-    // This should implement a hash table.
+
 
     private Pair<K, V>[] values = null;
     private int count = 0;
@@ -37,7 +37,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         if (capacity < DEFAULT_CAPACITY) {
             capacity = DEFAULT_CAPACITY;
         }
-        // Assuming capacity means the count of elements to add, so multiplying by fill factor.
+
         this.values = (Pair<K, V>[]) new Pair[(int) ((double) capacity * (1.0 + LOAD_FACTOR))];
         this.reallocationCount = 0;
         this.count = 0;
@@ -52,17 +52,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         return this.count;
     }
 
-    /**
-     * Prints out the statistics of the hash table.
-     * Here you should print out member variable information which tell something
-     * about your implementation.
-     * <p>
-     * For example, if you implement this using a hash table, update member
-     * variables of the class (int counters) in add() whenever a collision
-     * happen. Then print this counter value here.
-     * You will then see if you have too many collisions. It will tell you that your
-     * hash function is not good.
-     */
+
     @Override
     public String getStatus() {
         StringBuilder builder = new StringBuilder();
@@ -85,7 +75,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
         int i=0;
         int h = key.hashCode();
-        int index=h%(this.capacity01-1);
+        int index=h%this.capacity01;
         Pair<K,V> element = new Pair<>(key,value);
 
 
@@ -96,7 +86,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
         }else {
 
-            if (h==this.values[index].getKey().hashCode()&&(this.values[index].getKey().equals(key)==true)) {
+            if (h==this.values[index].getKey().hashCode()&&this.values[index].getKey().equals(key)) {
                 this.values[index].setValue(value);
                 i=1;
 
@@ -106,7 +96,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
                 while(index>=0){
                     h++;
-                    index=h%(this.capacity01-1);
+                    index=h%this.capacity01;
                     if(this.values[index]==null)
                         break;
                 }
@@ -140,34 +130,30 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
     @Override
     public V find(K key) throws IllegalArgumentException {
-        // Remember to check for null.
-
-        // Must use same method for computing index as add method
-        if(key==null){
-            throw new IllegalArgumentException("key_can_not_be_null");
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
         }
 
         int h = key.hashCode();
-        int index=h%(this.capacity01-1);
-        Pair<K,V> node01 = this.values[index];
+        int index = h % this.capacity01;
 
-        if (h==node01.getKey().hashCode()&&((node01.getKey().equals(key)==true))) {
-            return node01.getValue();
-
-        }
-        else if(index==node01.getKey().hashCode()&&!node01.getKey().equals(key)==true){
-            for(int i=0;i<this.count;i++){
-                h++;
-                index=h%(this.capacity01-1);
-                Pair<K,V> node02 = this.values[index];
-                if(node02.getKey().equals(key))
-                    return this.values[index].getValue();
+        Pair<K, V> node = this.values[index];
+        if (node != null && node.getKey().equals(key)) {
+            return node.getValue();
+        } else {
+            // Linear probing
+            for (int i = 1; i < this.capacity01; i++) {
+                int newIndex = (index + i) % this.capacity01;
+                node = this.values[newIndex];
+                if (node != null && node.getKey().equals(key)) {
+                    return node.getValue();
+                }
             }
-
         }
 
         return null;
     }
+
 
     @Override
     @java.lang.SuppressWarnings({"unchecked"})
